@@ -24,27 +24,38 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/4/5.
  */
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final int TYPE_ITEM = 0;
+    private final int TYPE_FOOTER = 1;
     private List<MyData> listDatas;
     private WeakReference<Activity> contextweak;
+    private boolean isCompleteFill = false;
     public RecyclerAdapter(Context context, List<MyData> mydatas){
         listDatas = new ArrayList<MyData>();
         listDatas = mydatas;
         contextweak = new WeakReference<Activity>((Activity)context);
     }
     @Override
-    public RecyclerAdapter.ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = contextweak.get();
-        View view = LayoutInflater.from(context).inflate(R.layout.item_recyclerview,parent,false);
-        return new ItemViewHolder(view);
+        View view;
+        if(viewType==TYPE_ITEM){
+            view = LayoutInflater.from(context).inflate(R.layout.item_recyclerview,parent,false);
+            return new ItemViewHolder(view);
+        }else if(viewType==TYPE_FOOTER&&isCompleteFill){
+            view = LayoutInflater.from(context).inflate(R.layout.item_footer,parent,false);
+            return new FooterViewHolder(view);
+        }
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder holder, final int position) {
-       MyData mydata = listDatas.get(position);
-        holder.myDesc.setText(mydata.getDesc());
-        holder.myMame.setText(mydata.getName());
-        holder.view.setOnLongClickListener(new View.OnLongClickListener() {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        RecyclerAdapter.ItemViewHolder itemholder = (RecyclerAdapter.ItemViewHolder)holder;
+        MyData mydata = listDatas.get(position);
+        itemholder.myDesc.setText(mydata.getDesc());
+        itemholder.myMame.setText(mydata.getName());
+        itemholder.view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 Toast.makeText(contextweak.get(), "删除"+position+listDatas.get(position).getName(), Toast.LENGTH_SHORT).show();
@@ -53,20 +64,44 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                 return true;
             }
         });
-        holder.view.setOnClickListener(new View.OnClickListener() {
+        itemholder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(contextweak.get(), "点击"+position+listDatas.get(position).getName(), Toast.LENGTH_SHORT).show();
             }
         });
-        Picasso.with(contextweak.get()).load("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png").into(holder.myIcon);
+        Picasso.with(contextweak.get()).load("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png").into(itemholder.myIcon);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        // 如果没有充满屏幕或者还没有到达最后一个就返回普通的Item
+        System.out.println("getItemViewType" + position + "  getItemCount" + getItemCount()+"isCompleteFill"+isCompleteFill);
+        if(!isCompleteFill||position+1!=getItemCount()){
+            System.out.println("TYPE_ITEM");
+            return TYPE_ITEM;
+        }else{
+            System.out.println("TYPE_FOOTER");
+            return TYPE_FOOTER;
+        }
     }
 
     @Override
     public int getItemCount() {
-      return listDatas.size();
+        System.out.println("getItemCount-->isCompleteFill"+isCompleteFill);
+        if(isCompleteFill){ // 如果充满屏幕就将更多的Footer加在最后
+            System.out.println("listDatas.size()+1"+listDatas.size()+1);
+            return listDatas.size()+1;
+        }else{ // 否则就隐藏掉Footer
+            System.out.println("listDatas.size()"+listDatas.size());
+            return listDatas.size();
+        }
     }
-
+    //更改手机屏幕是否被占满的状态
+    public void changeIsCompleteFill(boolean status){
+        isCompleteFill = status;
+        notifyDataSetChanged();
+    }
     class ItemViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.name_tv)
         TextView myMame;
@@ -80,6 +115,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
+    }
+    class FooterViewHolder extends RecyclerView.ViewHolder{
+        public FooterViewHolder(View itemView) {
+            super(itemView);
+        }
     }
 }

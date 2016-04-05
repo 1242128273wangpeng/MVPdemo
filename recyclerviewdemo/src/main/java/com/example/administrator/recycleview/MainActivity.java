@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
     LinearLayoutManager layoutManage;
     private List<MyData> lists;
+    private RecyclerAdapter adapter;
     private int lastItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManage = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManage);
         System.out.println(lists.size());
-        final RecyclerAdapter adapter = new RecyclerAdapter(this,lists);
+        adapter = new RecyclerAdapter(this,lists);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -60,27 +61,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                System.out.println("adapter.getItemCount()"+adapter.getItemCount());
-                if (newState == RecyclerView.SCROLL_STATE_IDLE&&lastItem+1==adapter.getItemCount()) {
-                    System.out.println("加载更多");
-                    swipeRefreshLayout.setRefreshing(true);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            int before =  lists.size();
-                            for (int i = 0; i < 5; i++) {
-                               MyData myadddata = new MyData("增加的Mydata"+i+"的描述","","增加的Mydata"+i+"Name");
-                                lists.add(myadddata);
-                            }
-                            int after = lists.size();
-                            System.out.println("增加了");
-                            adapter.notifyItemRangeChanged(before,after);
-                            swipeRefreshLayout.setRefreshing(false);
+                System.out.println("----------------"+adapter.getItemCount());
+
+                    if(isCanLoadMore()){
+                        adapter.changeIsCompleteFill(true);
+                        if (newState == RecyclerView.SCROLL_STATE_IDLE&&lastItem+1==adapter.getItemCount()) {
+                            System.out.println("加载更多");
                         }
-                    },3000);
+//                    swipeRefreshLayout.setRefreshing(true);
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            int before =  lists.size();
+//                            for (int i = 0; i < 5; i++) {
+//                               MyData myadddata = new MyData("增加的Mydata"+i+"的描述","","增加的Mydata"+i+"Name");
+//                                lists.add(myadddata);
+//                            }
+//                            int after = lists.size();
+//                            System.out.println("增加了");
+//                            adapter.notifyItemRangeChanged(before,after);
+//                            swipeRefreshLayout.setRefreshing(false);
+//                        }
+//                    },3000);
                 }
             }
         });
+
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -95,4 +101,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private boolean isCanLoadMore(){
+        // 获取到可以看见的子item的个数
+          int visiableitemcount = recyclerView.getChildCount();
+        // 如果可视的View是所有的子view
+        if(visiableitemcount==adapter.getItemCount()){
+           return false;
+        }
+        return true;
+    }
+
 }
