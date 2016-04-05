@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.swipe_RefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     LinearLayoutManager layoutManage;
+    private List<MyData> lists;
     private int lastItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        List<MyData> lists = new ArrayList<MyData>();
+        lists = new ArrayList<MyData>();
         for (int i = 0; i < 30; i++) {
             MyData mdata = new MyData("Mydata"+i+"的描述","","Mydata"+i+"Name");
             lists.add(mdata);
@@ -50,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
 //                if (dy > 0) {
 //                    Toast.makeText(MainActivity.this,"up",Toast.LENGTH_SHORT).show();
 //                } else {
-//                    Toast.makeText(MainActivity.this,"down",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivit y.this,"down",Toast.LENGTH_SHORT).show();
 //                }
-//                System.out.println("lastItem-->"+lastItem);
+                 System.out.println("lastItem-->"+lastItem);
 //                System.out.println("lastCompleteItem-->"+layoutManage.findLastCompletelyVisibleItemPosition());
             }
 
@@ -62,6 +63,21 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("adapter.getItemCount()"+adapter.getItemCount());
                 if (newState == RecyclerView.SCROLL_STATE_IDLE&&lastItem+1==adapter.getItemCount()) {
                     System.out.println("加载更多");
+                    swipeRefreshLayout.setRefreshing(true);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            int before =  lists.size();
+                            for (int i = 0; i < 5; i++) {
+                               MyData myadddata = new MyData("增加的Mydata"+i+"的描述","","增加的Mydata"+i+"Name");
+                                lists.add(myadddata);
+                            }
+                            int after = lists.size();
+                            System.out.println("增加了");
+                            adapter.notifyItemRangeChanged(before,after);
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    },3000);
                 }
             }
         });
