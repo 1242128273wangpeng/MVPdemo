@@ -1,4 +1,4 @@
-package com.example.administrator.recycleview;
+package com.example.administrator.recyclerviewdemo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package com.example.administrator.recycleview.adapter;
+package com.example.administrator.recyclerviewdemo.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.administrator.recyclerviewdemo.bean.MyData;
 import com.example.administrator.recycleview.R;
-import com.example.administrator.recycleview.bean.MyData;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
@@ -20,6 +20,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import hugo.weaving.DebugLog;
 
 /**
  * Created by Administrator on 2016/4/5.
@@ -86,14 +87,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    @Override
+    @Override @DebugLog
     public int getItemCount() {
         System.out.println("getItemCount-->isCompleteFill"+isCompleteFill);
         if(isCompleteFill){ // 如果充满屏幕就将更多的Footer加在最后
-            System.out.println("listDatas.size()+1"+listDatas.size()+1);
+            System.out.println("listDatas.size()+1");
             return listDatas.size()+1;
         }else{ // 否则就隐藏掉Footer
-            System.out.println("listDatas.size()"+listDatas.size());
+            System.out.println("listDatas.size()");
             return listDatas.size();
         }
     }

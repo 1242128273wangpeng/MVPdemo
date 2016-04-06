@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.administrator.recyclerviewdemo.MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             >
             <intent-filter>

@@ -1,4 +1,4 @@
-package com.example.administrator.recycleview;
+package com.example.administrator.recyclerviewdemo;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,14 +8,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import com.example.administrator.recycleview.adapter.RecyclerAdapter;
-import com.example.administrator.recycleview.bean.MyData;
+import com.example.administrator.recyclerviewdemo.adapter.RecyclerAdapter;
+import com.example.administrator.recyclerviewdemo.bean.MyData;
+import com.example.administrator.recycleview.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import hugo.weaving.DebugLog;
 
 public class MainActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)

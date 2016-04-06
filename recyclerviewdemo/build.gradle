@@ -1,11 +1,21 @@
-apply plugin: 'com.android.application'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
 
+    dependencies {
+        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.hugo'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.example.administrator.recycleview"
+        applicationId "com.example.administrator.recyclerviewdemo"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
