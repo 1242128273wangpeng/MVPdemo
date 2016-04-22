@@ -25,6 +25,7 @@ public class NewsPresenterImpl implements NewsPresenter, NewsModelImpl.OnLoadNew
     public void loadNews(int type) {
         String url = createUrl(type);
         newsview.showProgress();
+        System.out.println("createUrl");
         newsmodel.loadingNews(url,this);
     }
 
@@ -36,7 +37,7 @@ public class NewsPresenterImpl implements NewsPresenter, NewsModelImpl.OnLoadNew
                 sb.append(MURL.NOWHOST).append("&key=").append(MURL.KEY);
                 break;
             case NewsFragment.NEWS_TYPE_NANCHANG:
-                sb.append(MURL.QUERYHOST).append("&key=").append(MURL.KEY).append("&q=南昌");
+                sb.append(MURL.QUERYHOST).append("&key=").append(MURL.KEY).append("&q=ANDROID");
                 break;
             case NewsFragment.NEWS_TYPE_VR:
                 sb.append(MURL.QUERYHOST).append("&key=").append(MURL.KEY).append("&q=VR");

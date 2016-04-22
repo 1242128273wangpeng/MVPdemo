@@ -1,8 +1,11 @@
 package com.example.administrator.tempele.news.widget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -32,13 +35,14 @@ public class NewsListFragment extends Fragment implements NewsView, SwipeRefresh
     private NewsAdapter mAdapter;
     private List<NewsBean> mData;
     private NewsPresenter mNewsPresenter;
-    private int mType = NewsFragment.NEWS_TYPE_TOP;
+    private int mType;
 
     public static NewsListFragment newInstance(int type) {
         Bundle args = new Bundle();
         NewsListFragment fragment = new NewsListFragment();
         args.putInt("type", type);
         fragment.setArguments(args);
+        System.out.println("NewListFragment--->type"+type);
         return fragment;
     }
 
@@ -67,6 +71,7 @@ public class NewsListFragment extends Fragment implements NewsView, SwipeRefresh
         mAdapter.setOnItemClickListener(mOnItemClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(mOnScrollListener);
+        System.out.println("NewListFragment--->onCreateView");
         onRefresh();
         return view;
     }
@@ -86,6 +91,7 @@ public class NewsListFragment extends Fragment implements NewsView, SwipeRefresh
                     && lastVisibleItem + 1 == mAdapter.getItemCount()
                     && mAdapter.isShowFooter()) {
                 //加载更多
+                mNewsPresenter.loadNews(mType);
             }
         }
     };
@@ -94,6 +100,16 @@ public class NewsListFragment extends Fragment implements NewsView, SwipeRefresh
         @Override
         public void onItemClick(View view, int position) {
             NewsBean news = mAdapter.getItem(position);
+            Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+            intent.putExtra("news", news);
+            if(news!=null){
+                View transitionView = view.findViewById(R.id.ivNews);
+                ActivityOptionsCompat options =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+                                transitionView, getString(R.string.transition_news_img));
+
+                ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+            }
         }
     };
 
@@ -110,6 +126,7 @@ public class NewsListFragment extends Fragment implements NewsView, SwipeRefresh
         }
         mData.addAll(newsList);
         mAdapter.setDatas(mData);
+        System.out.println("----------mData---" + mData.size());
 //        if(pageIndex == 0) {
 //            mAdapter.setDatas(mData);
 //        } else {
@@ -142,6 +159,7 @@ public class NewsListFragment extends Fragment implements NewsView, SwipeRefresh
     @Override
     public void onRefresh() {
         if(mData != null) {
+            System.out.println("clear --- mData.size()" + mData.size());
             mData.clear();
         }
         mNewsPresenter.loadNews(mType);
