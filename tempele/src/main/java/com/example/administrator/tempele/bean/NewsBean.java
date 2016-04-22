@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 2016/3/27.
  */
-public class NewsBean implements Serializable {
+public class NewsBean implements Serializable,Comparable<NewsBean> {
     private String title;
     private String content;
     private String pdate;
@@ -72,5 +72,10 @@ public class NewsBean implements Serializable {
                 ", img='" + img + '\'' +
                 ", url='" + url + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(NewsBean another) {
+        return this.getPdate().compareTo(another.getPdate());
     }
 }
