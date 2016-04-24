@@ -24,7 +24,7 @@ import com.example.administrator.tempele.bean.UpdateBean;
 import com.example.administrator.tempele.main.widget.MainActivity;
 
 
-public class LoginHelper {// 单例模式
+public class LoginHelper {   // 单例模式
 	private final int UPDATE = 11;// 更新
 	private final int ConnectionError = 12;// 连接服务器出错
 	private final int ServerError = 13;// 服务器出错

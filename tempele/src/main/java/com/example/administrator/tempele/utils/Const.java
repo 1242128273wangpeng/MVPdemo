@@ -10,5 +10,5 @@ public class Const {
   public static final String USEICONPATH = "usericon";
   public static final String IsREMBER = "isrember";
   public static final String IsFASTLOGIN = "isfastlogin";
-  public static final String APKURL = "http://1.examhelper.sinaapp.com/versioninfo.xml";
+  public static final String APKURL = "http://1.bullstockmarket.applinzi.com/versioninfo.xml";
 }
