@@ -109,7 +109,7 @@ public class NewsModelImpl implements NewsModel {
                             if (sum >= 10 && topnew != null) {
                                 for (int i = 0; i < 20; i++) {
                                     final OkHttpClient httpClienta = new OkHttpClient();
-                                    String urla = MURL.QUERYHOST + "&key=" + MURL.KEY + "&q=" + topnew[i];
+                                    String urla = MURL.NEWQUERYHOST + "&key=" + MURL.NEWKEY + "&q=" + topnew[i];
                                     System.out.println("======" + urla);
                                     final Request requesta = new Request.Builder().url(urla).build();
                                     new Thread(new Runnable() {

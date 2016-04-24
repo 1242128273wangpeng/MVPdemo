@@ -34,16 +34,16 @@ public class NewsPresenterImpl implements NewsPresenter, NewsModelImpl.OnLoadNew
         StringBuffer sb = new StringBuffer();
         switch (type) {
             case NewsFragment.NEWS_TYPE_TOP:
-                sb.append(MURL.NOWHOST).append("&key=").append(MURL.KEY);
+                sb.append(MURL.NEWHOST).append("&key=").append(MURL.NEWKEY);
                 break;
             case NewsFragment.NEWS_TYPE_NANCHANG:
-                sb.append(MURL.QUERYHOST).append("&key=").append(MURL.KEY).append("&q=ANDROID");
+                sb.append(MURL.NEWQUERYHOST).append("&key=").append(MURL.NEWKEY).append("&q=ANDROID");
                 break;
             case NewsFragment.NEWS_TYPE_VR:
-                sb.append(MURL.QUERYHOST).append("&key=").append(MURL.KEY).append("&q=VR");
+                sb.append(MURL.NEWQUERYHOST).append("&key=").append(MURL.NEWKEY).append("&q=VR");
                 break;
             case NewsFragment.NEWS_TYPE_NBA:
-                sb.append(MURL.QUERYHOST).append("&key=").append(MURL.KEY).append("&q=NBA");
+                sb.append(MURL.NEWQUERYHOST).append("&key=").append(MURL.NEWKEY).append("&q=NBA");
                 break;
         }
         System.out.println("sb---->"+sb.toString());

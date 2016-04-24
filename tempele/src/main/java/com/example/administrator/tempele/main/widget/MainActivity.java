@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.administrator.tempele.R;
 import com.example.administrator.tempele.about.widget.AboutFragment;
-import com.example.administrator.tempele.image.widget.ImageFragment;
+import com.example.administrator.tempele.stock.widget.StockFragment;
 import com.example.administrator.tempele.main.presenter.MainPresenter;
 import com.example.administrator.tempele.main.presenter.MainPresenterImpl;
 import com.example.administrator.tempele.main.view.MainView;
@@ -55,19 +55,19 @@ public class MainActivity extends AppCompatActivity implements MainView {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                Toast.makeText(getApplicationContext(), "被打开了", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(), "被打开了", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                Toast.makeText(getApplicationContext(), "被关闭了", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(), "被关闭了", Toast.LENGTH_LONG).show();
             }
         };
         drawerlayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         setUpDrawerContent(nagivationView);
-        mainPresenter.switchNavigation(R.id.navigation_item_news);
+        mainPresenter.switchNavigation(R.id.navigation_item_stocks);
     }
 
     @Override
@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         navigationview.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                item.setChecked(true);
                 mainPresenter.switchNavigation(item.getItemId());
+                item.setChecked(true);
                 drawerlayout.closeDrawers();
                 return true;
             }
@@ -132,13 +132,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void DrawerSwitch(int type) {
         Fragment fargment = null;
         switch (type) {
+            case R.id.navigation_item_stocks:
+                fargment = new StockFragment().newInstance();
+                customtoolbar.setTitle("股票");
+                break;
             case R.id.navigation_item_news:
                 fargment = new NewsFragment().newInstance();
-                customtoolbar.setTitle("新闻");
-                break;
-            case R.id.navigation_item_images:
-                fargment = new ImageFragment().newInstance();
-                customtoolbar.setTitle("图片");
+                customtoolbar.setTitle("资讯");
                 break;
             case R.id.navigation_item_weather:
                 fargment = new WeatherFragment().newInstance();
@@ -149,7 +149,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 customtoolbar.setTitle("关于");
                 break;
             default:
-                fargment = new NewsFragment().newInstance();
+                fargment = new StockFragment().newInstance();
+                customtoolbar.setTitle("股票");
                 break;
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content,fargment).commit();
