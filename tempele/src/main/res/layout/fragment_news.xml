@@ -14,7 +14,7 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#242424"
+            android:background="#292421"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:tabIndicatorColor="#fff" />
     </android.support.design.widget.AppBarLayout>

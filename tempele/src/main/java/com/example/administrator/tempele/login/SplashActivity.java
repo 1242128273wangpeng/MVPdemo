@@ -3,6 +3,8 @@ package com.example.administrator.tempele.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.view.animation.AlphaAnimation;
 import android.widget.RelativeLayout;
@@ -28,7 +30,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.splash);
         startTime = System.currentTimeMillis();
         AlphaAnimation alpha = new AlphaAnimation(0f, 1.0f);
-        alpha.setDuration(2000);
+        alpha.setDuration(3000);
         RelativeLayout splash_bg = (RelativeLayout) findViewById(R.id.splash_bg);
         splash_bg.setAnimation(alpha);//给该View设置动画效果
         // 版本号
@@ -40,12 +42,17 @@ public class SplashActivity extends Activity {
         if (SafePreference.getBool(SplashActivity.this, Const.IsUpdate)) {
             // 尽量把activty中的其他操作用类封装并完成这些操作，不要在Activty里面去完成这些操作
             // 登录处理
-            System.out.println("cooooooooooooooooo");
-            LoginHelper.getInstance(this).loginConnection();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    SplashActivity.this.startActivity(intent);
+                    SplashActivity.this.finish();
+                }
+            },3000);
         } else {
             //睡两秒直接进入主界面
-            System.out.println("iiiiiiiiiiiiiiiiiiii");
-            new Thread(new myRunnable()).start();
+            System.out.println("SafePreference.getBool(SplashActivity.this, Const.IsUpdate)"+SafePreference.getBool(SplashActivity.this, Const.IsUpdate));
         }
 
     }
@@ -56,31 +63,4 @@ public class SplashActivity extends Activity {
         super.onDestroy();
     }
 
-    class myRunnable implements Runnable {
-        @Override
-        public void run() {
-            long endtime = System.currentTimeMillis();
-            long sleeptime = endtime - startTime;
-            if (sleeptime < 2000) {
-                SystemClock.sleep(2000 - sleeptime);
-            }
-/*			try {
-                Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
-            SplashActivity.this.runOnUiThread(new Runnable() {
-                //可以直接在UI线程中执行的
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                    SplashActivity.this.startActivity(intent);
-                    SplashActivity.this.finish();
-                }
-            });
-        }
-        //如果在UI线程里面会阻塞UI,黑屏
-    }
 }

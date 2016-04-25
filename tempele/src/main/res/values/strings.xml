@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tempele</string>
+    <string name="app_name">牛股操盘</string>
     <string name="action_settings">设置</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
