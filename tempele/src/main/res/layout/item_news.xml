@@ -3,15 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="6dp"
+    android:layout_marginRight="6dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground">
     <!--CardView默认是没有点击事件的
      android:foreground="?android:attr/selectableItemBackground
     可以使CardView点击产生波纹的效果，有触摸点向外扩散。-->
     <LinearLayout
+        android:id="@+id/bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -45,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:maxLines="2"
-                android:textColor="#ccffaa"
+                android:textColor="#292929"
                 android:textSize="12sp" />
         </LinearLayout>
 

@@ -47,7 +47,7 @@ public class NewsFragment extends Fragment {
         viewpager.setOffscreenPageLimit(3);
         setUpViewPager(viewpager);
         tabLayout.addTab(tabLayout.newTab().setText("头条"));
-        tabLayout.addTab(tabLayout.newTab().setText("南昌"));
+        tabLayout.addTab(tabLayout.newTab().setText("ANDROID"));
         tabLayout.addTab(tabLayout.newTab().setText("VR"));
         tabLayout.addTab(tabLayout.newTab().setText("NBA"));
         tabLayout.setupWithViewPager(viewpager);
@@ -57,7 +57,7 @@ public class NewsFragment extends Fragment {
     public void setUpViewPager(ViewPager viewpager) {
         MyPagerAdapter adapter = new MyPagerAdapter(getChildFragmentManager());
         adapter.addFragment(NewsListFragment.newInstance(NEWS_TYPE_TOP),"头条");
-        adapter.addFragment(NewsListFragment.newInstance(NEWS_TYPE_NANCHANG),"南昌");
+        adapter.addFragment(NewsListFragment.newInstance(NEWS_TYPE_NANCHANG),"ANDROID");
         adapter.addFragment(NewsListFragment.newInstance(NEWS_TYPE_VR),"VR");
         adapter.addFragment(NewsListFragment.newInstance(NEWS_TYPE_NBA),"NBA");
         viewpager.setAdapter(adapter);

@@ -25,6 +25,7 @@ public class NewsPresenterImpl implements NewsPresenter, NewsModelImpl.OnLoadNew
     public void loadNews(int type) {
         String url = createUrl(type);
         newsview.showProgress();
+        System.out.println("createUrl");
         newsmodel.loadingNews(url,this);
     }
 
@@ -33,16 +34,16 @@ public class NewsPresenterImpl implements NewsPresenter, NewsModelImpl.OnLoadNew
         StringBuffer sb = new StringBuffer();
         switch (type) {
             case NewsFragment.NEWS_TYPE_TOP:
-                sb.append(MURL.NOWHOST).append("&key=").append(MURL.KEY);
+                sb.append(MURL.NEWHOST).append("&key=").append(MURL.NEWKEY);
                 break;
             case NewsFragment.NEWS_TYPE_NANCHANG:
-                sb.append(MURL.QUERYHOST).append("&key=").append(MURL.KEY).append("&q=南昌");
+                sb.append(MURL.NEWQUERYHOST).append("&key=").append(MURL.NEWKEY).append("&q=ANDROID");
                 break;
             case NewsFragment.NEWS_TYPE_VR:
-                sb.append(MURL.QUERYHOST).append("&key=").append(MURL.KEY).append("&q=VR");
+                sb.append(MURL.NEWQUERYHOST).append("&key=").append(MURL.NEWKEY).append("&q=VR");
                 break;
             case NewsFragment.NEWS_TYPE_NBA:
-                sb.append(MURL.QUERYHOST).append("&key=").append(MURL.KEY).append("&q=NBA");
+                sb.append(MURL.NEWQUERYHOST).append("&key=").append(MURL.NEWKEY).append("&q=NBA");
                 break;
         }
         System.out.println("sb---->"+sb.toString());

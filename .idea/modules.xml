@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/MVPdemo.iml" filepath="$PROJECT_DIR$/MVPdemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/recyclerviewdemo/recyclerviewdemo.iml" filepath="$PROJECT_DIR$/recyclerviewdemo/recyclerviewdemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/teet/teet.iml" filepath="$PROJECT_DIR$/teet/teet.iml" />
       <module fileurl="file://$PROJECT_DIR$/tempele/tempele.iml" filepath="$PROJECT_DIR$/tempele/tempele.iml" />
       <module fileurl="file://$PROJECT_DIR$/weathermvp/weathermvp.iml" filepath="$PROJECT_DIR$/weathermvp/weathermvp.iml" />
     </modules>

@@ -68,15 +68,10 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 return;
             }
             System.out.println(news.toString());
-                    ((ItemViewHolder) holder).mTitle.setText(news.getTitle());
+            ((ItemViewHolder) holder).mTitle.setText(news.getTitle());
             ((ItemViewHolder)holder).mDes.setText(news.getContent());
-            if("".equals(news.getImg())){
-                Picasso.with(mContext).load(R.drawable.dot).into(((ItemViewHolder) holder).mNewsImg);
-            }else {
-                System.out.println("news.getImg():"+news.getImg());
-                Picasso.with(mContext).load(news.getImg()).into(((ItemViewHolder) holder).mNewsImg);
+            Picasso.with(mContext).load(news.getImg()).into(((ItemViewHolder) holder).mNewsImg);
             }
-        }
     }
 
     public void isShowFooter(boolean showFooter) {
@@ -110,7 +105,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
+         void onItemClick(View view, int position);
     }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
@@ -126,15 +121,18 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView mDes;
         @Bind(R.id.ivNews)
         ImageView mNewsImg;
+        @Bind(R.id.bg)
+        View view;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            mNewsImg.setOnClickListener(this);
+            view.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
+            System.out.println("onclick");
             if (mOnItemClickListener != null) {
                 mOnItemClickListener.onItemClick(v, this.getAdapterPosition());
             }
